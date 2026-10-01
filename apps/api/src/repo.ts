@@ -49,6 +49,13 @@ export function getTask(db: Db, id: number): Task | undefined {
   return row && toTask(row);
 }
 
+export function listTasksForUser(db: Db, userId: number): Task[] {
+  const rows = db
+    .prepare('SELECT * FROM tasks WHERE assignee_id = ? ORDER BY id')
+    .all(userId) as TaskRow[];
+  return rows.map(toTask);
+}
+
 export function userExists(db: Db, id: number): boolean {
   return db.prepare('SELECT 1 FROM users WHERE id = ?').get(id) !== undefined;
 }

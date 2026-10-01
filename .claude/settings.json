@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && out=$(npm test --silent 2>&1) || { printf '%s\n' \"$out\" | tail -40 >&2; echo \"Tests are failing. Fix them before you finish.\" >&2; exit 2; }"
+          }
+        ]
+      }
+    ]
+  }
+}
