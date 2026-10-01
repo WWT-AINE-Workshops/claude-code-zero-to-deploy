@@ -31,7 +31,10 @@ export function listTasks(
     conds.push('u.name LIKE ?');
     args.push(`%${opts.assignee}%`);
   }
-  if (opts.q) conds.push(`t.title LIKE '%${opts.q}%'`);
+  if (opts.q) {
+    conds.push('t.title LIKE ?');
+    args.push(`%${opts.q}%`);
+  }
   const from = 'FROM tasks t LEFT JOIN users u ON u.id = t.assignee_id';
   const where = conds.length ? `WHERE ${conds.join('\n  AND ')}` : '';
   const total = db
