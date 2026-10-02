@@ -4,6 +4,7 @@ import type { Db } from './db';
 import { HttpError } from './errors';
 import { healthRoutes } from './routes/health';
 import { taskRoutes } from './routes/tasks';
+import { usersRoutes } from './routes/users';
 
 export interface AppDeps {
   db: Db;
@@ -36,5 +37,6 @@ export function buildApp(deps: AppDeps): FastifyInstance {
 
   healthRoutes(app);
   taskRoutes(app, deps);
+  usersRoutes(app, deps);
   return app;
 }
